@@ -1,0 +1,42 @@
+Run a 35B parameter AI model on just 6GB VRAM using llama.cpp and Qwen 3.6.
+
+This setup shouldn’t work—but with the right optimizations, it reaches good enough tps on a GTX 1060.
+
+In this video, I break down how to run large language models locally on low VRAM GPUs using MoE offloading, memory tuning, and a few critical flags that dramatically improve performance.
+
+What you’ll learn:
+• How to run 35B LLMs on 6GB VRAM
+• llama.cpp optimization techniques
+• MoE (Mixture of Experts) offloading explained
+• Fixing slow token generation (3 tok/s → 17 tok/s)
+• Using --no-mmap and --mlock for performance and stability
+• TurboQuant for increasing context length
+• What doesn’t work (and why)
+
+Hardware used:
+• NVIDIA GTX 1060 (6GB VRAM)
+• Intel i3-8100
+• 24GB RAM
+
+Tech stack:
+Proxmox → LXC → Docker → llama.cpp (adapt based on your setup)
+
+Useful resources:
+• Qwen 3.6 35B-A3B model: https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbnJiTHBSZDVfLUhLNTQyaWwtajF3Y1Y0ckFXQXxBQ3Jtc0tuNlNCQm5SQ0JkNlBFOTZJTEJWdU1qWUFmNkZobl9TWVlWUVlEZXFKbGlXYzRGMTI0dVFBQ052LUgxZkxFTmhZcEJGdW9LaTYyelR5RUVTclFUajF1NTFZN3VZMlo5Mk1tMDY3YTUwUHZxYkVET2VzYw&q=https%3A%2F%2Fhuggingface.co%2FQwen%2FQwen3.6-35B-A3B&v=8F_5pdcD3HY
+• TurboQuant paper: https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbjVkcUFKNW5SeTBlNEcwdDBwbkNmS3FWQUJqUXxBQ3Jtc0ttQ1ZpaXlZNnFhVmdwcGFvN094MUE2SDg5SEtuVElhUjJEcklkc1BjeDhTbE0yeXdJcEVvWWVfRHlKczhhZUxpMTBrM0ExMWM5Rlg3aXZobE51RWQza29Bc3V3Z3dVaHQyNThCZkM1MURYOUdZc2ZhSQ&q=https%3A%2F%2Farxiv.org%2Fabs%2F..&v=8F_5pdcD3HY
+• llama.cpp TurboQuant fork: https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbGxpOWxsWVRMSWtKZlNYRkx4Y2JlYTZDVEcyd3xBQ3Jtc0trdC1kY2x4d3NNdXlCbzFIdWFHcFRuYXRMenI0Q3dwMjl1Rk9NSE1PRmNvOWR0ZVhXQ3hFekpuWTRyZjJ6MVRzSTdQQUY1U0dOOUltejBEWmpGcTVibV90b0MxZDVES2U3cWVsX3ZSbGRsZExURFlNUQ&q=https%3A%2F%2Fgithub.com%2FTheTom%2Fllama-cpp-turboquant&v=8F_5pdcD3HY
+
+If you're interested in running AI locally, optimizing LLM performance, or pushing old hardware to its limits, subscribe for more experiments.
+
+Chapters:
+00:00 This shouldn’t work
+00:27 Setup
+01:46 Why it’s slow by default
+02:52 MoE breakthrough
+04:33 Fixing memory bottlenecks
+05:32 Hitting 17 tok/s
+06:40 4× context trick
+09:23 Stability fix
+11:04 What failed
+13:32 The 5 flags
+
