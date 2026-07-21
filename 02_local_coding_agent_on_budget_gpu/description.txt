@@ -31,3 +31,15 @@ Just Local AI.
 13:55 Tailscale & Remote Access
 16:19 Final Build & Takeaways
 
+━━━━━━━━━━━━━━━━━━━━
+
+🔧 Models Used
+
+Qwen3.6-28B-REAP20-A3B-GGUF
+https://huggingface.co/barozp/Qwen3.6-28B-REAP20-A3B-GGUF
+
+GLM-4.7-Flash-REAP-23B-A3B-GGUF
+https://huggingface.co/unsloth/GLM-4.7-Flash-REAP-23B-A3B-GGUF
+
+━━━━━━━━━━━━━━━━━━━━
+

@@ -16,7 +16,7 @@ The transcript is a single long line, so references use topic order plus chapter
 | 00:58 Hardware | Offload less to RAM and leave enough CPU capacity | Direct intent | Safe profiles and thread stage in `PLAN.md` | Model load | Stable expert placement and thread sweep | `06_benchmark.sh threads` plus telemetry | Restore safe `n-cpu-moe`/threads |
 | 03:30 Models | MoE uses active experts rather than all weights every token | Direct | `MODELS.md` | Model metadata | Total and active parameters reported separately | Artifact metadata and runtime load | Remove selected model manually if unwanted |
 | 03:30 Models | REAP removes poorly used experts, with HumanEval 95.1 versus 94.5 claim | Direct with gap | `MODELS.md` | Published cards | Pruning ratio discrepancy remains visible | No benchmark claim without matching harness | None |
-| 03:30 Models | Use Qwen3.6 REAP and GLM-4.7-Flash-REAP-23B | Direct names, artifact gap | `MODELS.md`, `03_download_models.sh` | Disk and confirmation | Pinned candidate artifact | Exact bytes/SHA-256 | Retain `.part`; no automatic deletion |
+| 03:30 Models | Use Qwen3.6 REAP and GLM-4.7-Flash-REAP-23B | Description-linked repositories, exact artifact gap | `MODELS.md`, `03_download_models.sh` | Disk and confirmation | Pinned Q4_K_M selection | Exact bytes/SHA-256 | Retain `hf` local cache; no automatic deletion |
 | 03:30 Models | Prefer Q4_K_M or Unsloth Dynamic Q4; avoid sub-Q4 quality loss | Direct | Download profiles | Model choice | Q4 candidate selected | Hash plus later tool/retrieval quality | Switch to alternate Q4 candidate |
 | 03:30 Models | Practical mid-frontier range is about 20B-40B; two complementary models | Direct claim | `README.md`, router preset example | Both downloads for switching | One model loaded at a time | A-to-B-to-A test | Stop router and use direct profile |
 | 07:35 Optimization | Agent bottleneck is prefill, not decode alone | Direct | `VALIDATION.md`, `06_benchmark.sh` | Local model | Separate PP and TG rows | Machine-readable positive rates | None |
@@ -38,7 +38,7 @@ The transcript is a single long line, so references use topic order plus chapter
 ## Exact Source Gaps
 
 - The full llama-server command shown in the video is absent from the transcript.
-- No exact Qwen repository, GGUF filename, revision, checksum, or Unsloth link is supplied.
+- The description supplies both repository links, but no exact GGUF file, quant variant, revision, or checksum used in the video.
 - The GLM model is strongly identifiable, but Q4_K_M versus UD-Q4_K_XL is unresolved.
 - Complete llama-bench commands, model placement, context, run count, and raw tables are absent.
 - The spoken `models.ini` syntax and server router flag are absent; this project uses the verified current build syntax.

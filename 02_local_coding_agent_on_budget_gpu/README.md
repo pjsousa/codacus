@@ -50,10 +50,10 @@ The strongest practical candidates are:
 ./scripts/03_download_models.sh --list
 ```
 
-- `qwen-reap-q4km`: 17.26 GB. Exact model name match, but the repository is not proven to be the video's Unsloth source.
-- `glm-reap-q4km`: 14.11 GB. Strong model identification and the transcript's preferred literal Q4_K_M quant.
+- `qwen-reap-q4km`: 17.26 GB. Uses the exact repository linked in the video description and selects the transcript's preferred Q4_K_M quant.
+- `glm-reap-q4km`: 14.11 GB. Uses the exact repository linked in the video description and selects the transcript's preferred Q4_K_M quant.
 
-The script prints the pinned revision, exact bytes, SHA-256, license, free space, and ambiguity before requiring an exact confirmation. Example:
+The description identifies the repositories, but not the exact files, quant variants, revisions, or checksums used in the video. The script pins reproducible Q4_K_M selections and prints their revision, exact bytes, SHA-256, license, free space, and remaining ambiguity before requiring an exact confirmation. Example:
 
 ```bash
 ./scripts/03_download_models.sh glm-reap-q4km

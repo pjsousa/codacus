@@ -51,7 +51,7 @@ record() {
     ss -ltnp "sport = :$SERVER_PORT" || true
   fi
   printf '\n== Utilities ==\n'
-  for utility in curl wget git python3 node npm nvidia-smi jq flock; do
+  for utility in curl wget hf git python3 node npm nvidia-smi jq flock; do
     printf '%-12s %s\n' "$utility" "$(command -v "$utility" 2>/dev/null || printf MISSING)"
   done
   printf '\n== Existing llama.cpp version ==\n'
@@ -85,7 +85,7 @@ for binary in llama-server llama-cli; do
   fi
 done
 
-for utility in curl wget git python3 node npm nvidia-smi; do
+for utility in curl wget hf git python3 node npm nvidia-smi; do
   if command -v "$utility" >/dev/null 2>&1; then
     record PASS "$utility is available"
   else

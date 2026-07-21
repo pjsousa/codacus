@@ -14,7 +14,7 @@
 | Pi reports model load timeout | Large router load exceeds extension monitor | `/models` status and server log | Poll status before retrying; do not launch duplicate loads |
 | `--mlock` locks only KiB | Host memlock limit is 64 KiB | `/proc/PID/status` `VmLck`, `ulimit` | Omit mlock. Any limit change needs separate approval and login restart |
 | Benchmark says success but lacks metrics | Output schema/version mismatch | Raw JSONL and stderr | Mark `FAIL`; update parser only after inspecting the exact build output |
-| Download restarts or fails hash | Proxy/range behavior, interrupted transfer, wrong revision | `.part` size and curl error | Partial files resume. If a complete `.part` has the wrong hash, move it aside manually after review, then rerun |
+| Download restarts or fails hash | Proxy behavior, interrupted transfer, wrong revision | `hf` error and files under `$MODEL_DIR/.cache/huggingface/download` | The `hf` CLI resumes from its local cache. If the final file fails the script's hash check, move it aside manually after review, then rerun |
 | Existing target has wrong hash | Unrelated/corrupt artifact | `sha256sum` | Move it aside manually after review; script refuses overwrite |
 | Server PID file is stale | Prior crash or manual process termination | `.state/llama-server.*`, `/proc/PID/exe` | `status` will not trust a mismatched executable; remove stale state only after inspection |
 
