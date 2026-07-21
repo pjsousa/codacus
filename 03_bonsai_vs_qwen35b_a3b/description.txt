@@ -1,0 +1,26 @@
+PrismML compressed Qwen's 27B dense model down to 3.5 GB with true 1-bit weights. Not quantization: the weights were trained as −1/+1 from day one. So I put both Bonsai builds up against my actual daily driver, a 21 GB Qwen 3.6 35B MoE, plus Gemma 4 12B as the fair-size control, and ran about thirty tests on one RTX 3060.
+
+Same landing-page brief. Same broken server over SSH. Same sampling settings, same KV cache quant, same effort level, every model.
+
+What came out of it surprised me more than once. The 21 GB model is more than twice as fast as a 7 GB one, and the reason has nothing to do with file size. The only model that could not reliably finish a long task was not the smallest one. And whether Bonsai makes sense on your machine comes down to a number almost nobody quotes on a spec sheet.
+
+If you run this on a Mac or a small card, tell me what you get in the comments.
+
+CHAPTERS
+0:00 Two models, one broken server
+0:39 What Bonsai actually is (1-bit vs quantization)
+3:24 Test 1 — can it design a webpage?
+6:34 Test 2 — SSH debugging, everyone passed
+9:26 Test 3 — the trap that survives a restart
+13:29 Where it breaks (Gemma's loop)
+15:35 Why the bigger model is faster (A3B vs dense)
+17:54 The number nobody quotes (total footprint)
+20:06 The verdict — who should run what
+
+THE MODELS
+Bonsai 27B (binary Q1_0, 3.5 GB / ternary Q2_0, 7 GB):
+https://huggingface.co/prism-ml
+
+Qwen 3.6 35B-A3B:
+https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF
+
