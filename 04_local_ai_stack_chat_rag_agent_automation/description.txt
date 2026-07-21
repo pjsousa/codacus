@@ -1,0 +1,33 @@
+Your laptop can already run ChatGPT-class AI — the model was never the hard part. The hard part is everything around it: a chat UI, a private knowledge base that reads your own documents, a coding agent, automations that run while you sleep — the whole stack, on hardware you own, with nothing leaving your machine.
+
+This is the full build. One local engine (llama.cpp), and every tool you'd actually reach for hanging off a single OpenAI-compatible endpoint — no cloud, no subscriptions, no price change or policy decision that can take it away from you.
+
+What we wire up:
+🌱 The engine — llama.cpp, with llama-server / llama-swap as the router
+💬 A chat UI — AnythingLLM (or Open WebUI)
+📚 RAG — chat with your own PDFs, fully local (✂ goodbye NotebookLM)
+⌨️ A coding agent — Pi, running on your own models (✂ Cursor / Copilot)
+🤖 Automation — n8n agents working 24/7 (✂ Zapier)
+🏠 Bonus — the homelab tips that turn this from a weekend project into something you actually rely on
+
+⏱ Chapters
+0:00 Why local AI isn't optional
+1:08 The engine — llama.cpp + the router
+2:55 Chat UI — AnythingLLM
+4:49 RAG — chat with your own documents
+7:08 Local coding agent — Pi
+9:05 Automation — n8n agents that run 24/7
+12:38 Bonus — homelab tips for an always-on rig
+13:54 The full stack — taking back control
+
+🔗 Tools & resources
+• llama.cpp — https://github.com/ggml-org/llama.cpp
+• llama-swap — https://github.com/mostlygeek/llama-swap
+• AnythingLLM — https://anythingllm.com
+• Open WebUI — https://openwebui.com
+• Pi coding agent — https://pi.dev
+• OpenCode — https://opencode.ai
+• n8n — https://n8n.io
+• Portainer — https://www.portainer.io
+• Tailscale — https://tailscale.com
+
