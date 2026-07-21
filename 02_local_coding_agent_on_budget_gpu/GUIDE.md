@@ -11,7 +11,7 @@ The video demonstrates running coding-agent-capable REAP (Redundant Expert Activ
 This host adapts the RTX 3060 stack to a GTX 1070 8 GB:
 
 | Resource | Video | This host | Consequence |
-|---|---|---|---:|---|
+|---|---|---|---|
 | GPU | RTX 3060 12 GB, tensor cores | GTX 1070 8 GB, compute 6.1 | 4 GB less VRAM; no tensor cores; all placement assumptions tightened |
 | CPU | 4-core, unspecified | i7-6700, 4C/8T, AVX2 | Tune 1-4 physical-core-oriented counts; do not assume 8 threads is best |
 | RAM | not stated | ~62 GiB total, ~53 GiB available | Enough for one Q4 model plus runtime buffers |
