@@ -1,0 +1,33 @@
+Everyone benchmarks Local AI using token generation speed.
+I did too.
+Then I built a real coding agent and realized something:
+The agent wasn't slow because of decode speed.
+It was slow because of prefill.
+
+In this video I build a complete local AI coding agent stack using an RTX 3060 12GB, REAP MoE models, llama.cpp, Pi Coding Agent, and Tailscale — then tune prompt processing all the way up to 1,142 tokens/sec.
+
+Along the way we'll cover:
+
+• Why prefill matters more than decode for agent workloads
+• REAP models and MoE efficiency on 12GB VRAM
+• KV cache compression with TurboQuant
+• Pi Coding Agent setup and model hot-swapping
+• Running your local AI agent from anywhere with Tailscale
+
+No API keys.
+No subscriptions.
+No rate limits.
+Just Local AI.
+
+━━━━━━━━━━━━━━━━━━━━
+
+📚 Chapters
+
+00:00 Cold Open
+00:58 Hardware
+03:30 Best Local AI Models (REAP + MoE)
+07:35 llama.cpp Optimization (Prefill Tuning)
+11:48 Pi Coding Agent Setup
+13:55 Tailscale & Remote Access
+16:19 Final Build & Takeaways
+
