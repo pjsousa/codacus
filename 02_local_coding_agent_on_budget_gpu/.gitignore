@@ -1,0 +1,15 @@
+configs/env.local
+configs/pi-config.local.json
+configs/models.ini.local
+.state/
+.tools/
+.tmp/
+node_modules/
+logs/*
+!logs/.gitkeep
+results/*
+!results/.gitkeep
+*.part
+*.pid
+*.key
+auth.json

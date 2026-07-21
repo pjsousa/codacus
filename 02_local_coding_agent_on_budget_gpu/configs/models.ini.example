@@ -1,0 +1,26 @@
+version = 1
+
+[*]
+c = 8192
+parallel = 1
+batch-size = 1024
+ubatch-size = 256
+threads = 3
+threads-batch = 4
+flash-attn = on
+cache-type-k = q8_0
+cache-type-v = turbo4
+cache-reuse = 256
+jinja = true
+load-on-startup = false
+stop-timeout = 30
+
+[qwen3.6-28b-reap20-q4km]
+model = /home/pedro/llama-low-vram-repro/models/Qwen3.6-28B-REAP20-A3B-Q4_K_M.gguf
+n-gpu-layers = all
+n-cpu-moe = 40
+
+[glm-4.7-flash-reap-23b-a3b-q4km]
+model = /home/pedro/llama-low-vram-repro/models/GLM-4.7-Flash-REAP-23B-A3B-Q4_K_M.gguf
+n-gpu-layers = all
+n-cpu-moe = 47
