@@ -4,7 +4,7 @@ This is a chapter-aligned reproduction package for the YouTube video **Build You
 
 ## 1. Executive overview
 
-The video wires up a complete local AI stack using a single `llama.cpp` inference engine as an OpenAI-compatible endpoint, then attaches four tool layers: a chat UI (AnythingLLM), a private RAG knowledge base (AnythingLLM's built-in system), a coding agent (Pi), and automation workflows (n8n). The key insight is that every tool connects to the same `http://localhost:8080/v1` endpoint, making the stack greater than the sum of its parts.
+The video wires up a complete local AI stack using a single `llama.cpp` inference engine as an OpenAI-compatible endpoint, then attaches four tool layers: a chat UI (AnythingLLM), a private RAG knowledge base (AnythingLLM's built-in system), a coding agent (Pi), and automation workflows (n8n). The key insight is that every tool connects to the same `http://localhost:8088/v1` endpoint, making the stack greater than the sum of its parts.
 
 This package reuses the existing `llama.cpp` TurboQuant build from project 01 (`~/llama-low-vram-repro/llama-cpp-turboquant/build`). No new `llama.cpp` compilation or host-level changes are needed. The video did not specify a particular model; this guide uses whichever GGUF is already present in the model directory.
 
@@ -101,13 +101,13 @@ The video's Proxmox/LXC/Docker stack is not reproduced because this host runs na
 ./scripts/02_serve_model.sh
 ```
 
-**Expected observation:** llama-server starts on port 8080, `/health` returns OK, `/v1/models` lists the loaded model, and `/v1/chat/completions` responds to a test prompt.
+**Expected observation:** llama-server starts on port 8088, `/health` returns OK, `/v1/models` lists the loaded model, and `/v1/chat/completions` responds to a test prompt.
 
 **Validation:** `01_verify_llamacpp.sh` performs all three checks automatically.
 
-**Likely failures:** missing `MODEL_FILE` in `config.env`, model not found, port 8080 already in use, or CUDA OOM if the model is too large for the GPU and system RAM. See the adaptation note below.
+**Likely failures:** missing `MODEL_FILE` in `config.env`, model not found, port 8088 already in use, or CUDA OOM if the model is too large for the GPU and system RAM. See the adaptation note below.
 
-**Host-specific adaptation:** If port 8080 is in use, override: `LLAMA_PORT=8081 ./scripts/02_serve_model.sh`. If the model OOMs, try a smaller model such as `MODEL_FILE=Qwen3.6-28B-REAP20-A3B-Q4_K_M.gguf ./scripts/02_serve_model.sh`. Default GPU layers are `-ngl 99`; reduce with `-ngl 20` at the end of the CLI_ARGS in `config.env`.
+**Host-specific adaptation:** If port 8088 is in use, override: `LLAMA_PORT=8089 ./scripts/02_serve_model.sh`. If the model OOMs, try a smaller model such as `MODEL_FILE=Qwen3.6-28B-REAP20-A3B-Q4_K_M.gguf ./scripts/02_serve_model.sh`. Default GPU layers are `-ngl 99`; reduce with `-ngl 20` at the end of the CLI_ARGS in `config.env`.
 
 **Reversal:** stop the server with `kill $(cat $RESULTS_DIR/*.pid)`.
 
@@ -117,7 +117,7 @@ The video's Proxmox/LXC/Docker stack is not reproduced because this host runs na
 
 **Objective:** deploy a chat interface that connects to the local LLM endpoint.
 
-**Technical change:** deploy AnythingLLM via Docker with `network_mode: host` so it can reach `localhost:8080`.
+**Technical change:** deploy AnythingLLM via Docker with `network_mode: host` so it can reach `localhost:8088`.
 
 **Prerequisites:** Docker running, `llama-server` from 4.2 operational.
 
@@ -133,7 +133,7 @@ The video's Proxmox/LXC/Docker stack is not reproduced because this host runs na
 
 1. Go to **Settings → LLM Preference** (or **Providers → LLM** in newer versions).
 2. Select **OpenAI** or **Generic OpenAI** as the LLM provider.
-3. Set **Base URL** to `http://localhost:8080/v1` (the llama-server endpoint).
+3. Set **Base URL** to `http://localhost:8088/v1` (the llama-server endpoint).
 4. Leave the API key blank or use any dummy value.
 5. Select the model from the dropdown (it auto-populates from `/v1/models`).
 6. Set **Max Tokens** (e.g., 4096) and **Context Length** (e.g., 4096 or the model's max).
@@ -189,7 +189,7 @@ The video's Proxmox/LXC/Docker stack is not reproduced because this host runs na
 ./scripts/04_setup_coding_agent.sh verify
 ```
 
-**Expected observation:** Pi is installed globally and configured with `provider: "llamacpp"` and `url: "http://localhost:8080/v1"`. The verify step checks that the endpoint is reachable.
+**Expected observation:** Pi is installed globally and configured with `provider: "llamacpp"` and `url: "http://localhost:8088/v1"`. The verify step checks that the endpoint is reachable.
 
 **Validation:**
 
@@ -234,7 +234,7 @@ pi
 1. Go to **Settings → Credentials**.
 2. Click **Add Credential** and select **OpenAI**.
 3. Set **API Key** to any dummy value (e.g., `local-llm-key`).
-4. Click the **Options** dropdown and set **Base URL** to `http://host.docker.internal:8080/v1`.
+4. Click the **Options** dropdown and set **Base URL** to `http://host.docker.internal:8088/v1`.
 5. Save the credential.
 
 Then create a workflow (example — email triage):
@@ -374,7 +374,7 @@ Not applicable — this video demonstrates wiring tools together, not optimizing
 $HOME/llama-low-vram-repro/llama-cpp-turboquant/build/bin/llama-server \
   -m "$HOME/llama-low-vram-repro/models/Qwen3.6-35B-A3B-UD-Q4_K_S.gguf" \
   --no-mmproj -ngl 99 -t 4 -tb 8 -c 4096 --flash-attn auto \
-  --host 127.0.0.1 --port 8080
+  --host 127.0.0.1 --port 8088
 
 # Terminal 2: Deploy anything-llm + n8n
 docker compose -f "$WORK_DIR/docker-stack/docker-compose.yml" up -d
@@ -385,7 +385,7 @@ mkdir -p ~/.pi
 cat >~/.pi/config.json <<'EOF'
 {
   "provider": "llamacpp",
-  "llamacpp": { "url": "http://localhost:8080/v1" },
+  "llamacpp": { "url": "http://localhost:8088/v1" },
   "model": null,
   "theme": "dark"
 }
@@ -402,7 +402,7 @@ EOF
 
 ```bash
 # Use the largest available model
-export MODEL_FILE="Qwen3.6-35B-A3B-UD-Q4_K_S.gguf"
+export MODEL_FILE="Qwen3.6-28B-REAP20-A3B-Q4_K_M.gguf"
 
 # Start server with all available GPU layers
 ./scripts/02_serve_model.sh
@@ -514,7 +514,7 @@ docker run -d --restart=always --gpus all -p 9292:8080 \
 - [ ] `01_verify_llamacpp.sh` confirms the server starts and responds.
 - [ ] `02_serve_model.sh` keeps llama-server running.
 - [ ] `03_docker_stack.sh up` starts both containers.
-- [ ] AnythingLLM LLM provider configured to `http://localhost:8080/v1` (manual).
+- [ ] AnythingLLM LLM provider configured to `http://localhost:8088/v1` (manual).
 - [ ] Documents uploaded and RAG working in AnythingLLM (manual).
 - [ ] `04_setup_coding_agent.sh install` completes without error.
 - [ ] `pi /models` lists the served model.

@@ -8,7 +8,7 @@ source "$SCRIPT_DIR/_common.sh"
 require_file "$LLAMA_SERVER"
 require_model
 
-PORT="${LLAMA_PORT:-8080}"
+PORT="${LLAMA_PORT:-8088}"
 HOST="${LLAMA_HOST:-127.0.0.1}"
 run_id="server_$(timestamp)"
 log_file="$RESULTS_DIR/${run_id}.log"
@@ -32,8 +32,13 @@ printf 'Log: %s\n' "$log_file"
   -tb "$THREADS_BATCH" \
   -c "$BASE_CONTEXT" \
   --flash-attn auto \
-  --host "$HOST" --port "$PORT" \
+  --fit off \
   -ngl 99 \
+  --n-cpu-moe 30 \
+  --no-mmap \
+  --cache-type-k q8_0 \
+  --cache-type-v turbo3 \
+  --host "$HOST" --port "$PORT" \
   >"$log_file" 2>&1 &
 server_pid=$!
 printf '%s' "$server_pid" >"$pid_file"

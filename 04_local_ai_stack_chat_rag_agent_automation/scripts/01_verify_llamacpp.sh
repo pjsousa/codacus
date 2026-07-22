@@ -22,7 +22,7 @@ printf '\n=== CUDA device detection ===\n'
 printf '\n=== Testing llama-server startup ===\n'
 require_model
 
-PORT="${LLAMA_PORT:-8080}"
+PORT="${LLAMA_PORT:-8088}"
 run_id="server_test_$(timestamp)"
 log_file="$RESULTS_DIR/${run_id}.log"
 mkdir -p "$RESULTS_DIR"
