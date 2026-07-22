@@ -227,16 +227,27 @@ MOE_VALUES="40 38 36 35 34 32 30 28 26 24 22 20 18" ./scripts/07_tune_layers.sh
 **GTX 1070 note:** begin with the video's 35, then test 34 and 32. The extra 2 GB may accept more expert weights, but this is empirical. Do not assume layer weights are uniform.
 
 > Observed: 40 [ Prompt: 12.4 t/s | Generation: 7.9 t/s ]
+
 > Observed: 38 [ Prompt: 54.6 t/s | Generation: 19.9 t/s ]
+
 > Observed: 36 [ Prompt: 55.3 t/s | Generation: 20.3 t/s ]
+
 > Observed: 34 [ Prompt: 61.1 t/s | Generation: 21.1 t/s ]
+
 > Observed: 32 [ Prompt: 63.7 t/s | Generation: 21.5 t/s ]
+
 > Observed: 30 [ Prompt: 62.2 t/s | Generation: 22.3 t/s ]
+
 > Observed: 28 OOM
+
 > Observed: 26 OOM
+
 > Observed: 24 OOM
+
 > Observed: 22 OOM
+
 > Observed: 20 OOM
+
 > Observed: 18 OOM
 
 ### 4.7 06:40 - 4x context trick

@@ -63,6 +63,7 @@ find_llama_binary() {
     "$LLAMA_BUILD_DIR/examples/$name"; do
     if [[ -x "$candidate" ]]; then
       printf '%s\n' "$candidate"
+      status_line "FOUND" "$candidate" >&2
       return 0
     fi
   done

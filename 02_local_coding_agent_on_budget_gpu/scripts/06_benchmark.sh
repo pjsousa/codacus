@@ -153,7 +153,7 @@ PY
 fi
 
 set +e
-timeout --signal=INT --kill-after=20s 840s "${base[@]}" "${args[@]}" >"$raw" 2>"$stderr_log"
+timeout --signal=INT --kill-after=20s 840s "${base[@]}" "${args[@]}" > >(tee "$raw") 2> >(tee "$stderr_log" >&2)
 exit_code=$?
 set -e
 cleanup

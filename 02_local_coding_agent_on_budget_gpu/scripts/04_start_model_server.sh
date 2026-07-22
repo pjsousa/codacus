@@ -237,7 +237,7 @@ cmd=(
   --jinja
   --metrics
   --offline
-  --no-ui
+  --ui
 )
 if [[ "$MMAP_MODE" == "off" ]]; then
   cmd+=(--no-mmap)
