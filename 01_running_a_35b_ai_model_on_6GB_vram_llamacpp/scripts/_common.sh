@@ -29,7 +29,17 @@ DRAFT_FILE="${DRAFT_FILE:-Qwen3.5-0.8B-Q4_K_M.gguf}"
 DRAFT_SHA256="${DRAFT_SHA256:-bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517}"
 DRAFT_PATH="${DRAFT_PATH:-$MODEL_DIR/$DRAFT_FILE}"
 
-CUDA_ARCH="${CUDA_ARCH:-61-real}"
+#CUDA_ARCH="${CUDA_ARCH:-61-real}"
+if [[ -z "${CUDA_ARCH:-}" ]] && command -v nvidia-smi &>/dev/null; then
+  cc="$(nvidia-smi --query-gpu=compute_cap --format=csv,noheader | head -1 | tr -d '.')"
+  if [[ -n "$cc" ]]; then
+    CUDA_ARCH="${cc}-real"
+  else
+    CUDA_ARCH="61-real"
+  fi
+else
+  CUDA_ARCH="${CUDA_ARCH:-61-real}"
+fi
 CUDA_ROOT="${CUDA_ROOT:-/usr/local/cuda-12.2}"
 BUILD_JOBS="${BUILD_JOBS:-4}"
 THREADS="${THREADS:-4}"
